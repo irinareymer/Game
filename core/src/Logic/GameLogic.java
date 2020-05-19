@@ -1,7 +1,8 @@
 package Logic;
 
 import Managers.EntitiesManager;
-import java.util.Random;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 
 public class GameLogic {
     //todo
@@ -9,6 +10,7 @@ public class GameLogic {
     protected EntitiesManager em;
     boolean isSetLuck = false;
     boolean isSetPower = false;
+    boolean isSetSpeed = false;
     int rolled;
 
     public GameLogic(EntitiesManager em) {
@@ -16,48 +18,48 @@ public class GameLogic {
     }
 
     public void init() {
-        play();
+
     }
 
     public void update(float dt) {
-    }
-
-    public int random(int luck){
-        Random rndm = new Random();
-        int random = rndm.nextInt(5) + 1;
-
-        if (luck == 3 || luck == 4) random++;
-        if (luck >= 5) random +=2;
-        if (random > 6) random = 6;
-
-        return random;
-    }
-
-    public int rollDice() {
-        if(em.getPlayState().getKm().isAction()) {
-            rolled = random(em.getCurrentPayer().getLuck());
-        }
-        return rolled;
-    }
-
-    public int getRolled() {
-        return rolled;
-    }
+        play();
+}
 
     public void play() {
 
         //player1
         em.setCurrentPlayer(em.getPlayState().getPlayer1());
-        System.out.println("Current" + em.getCurrentPayer().toString());
         em.getCurrentPayer().setName("OLEG"); //todo
+        //System.out.println("Current" + em.getCurrentPayer().getName());
 
         //setParameters for player1 //todo show param
-        if (em.getPlayState().getKm().isAction() && !isSetLuck) {
-            em.getCurrentPayer().setLuck(rollDice());
+        boolean act = Gdx.input.isKeyJustPressed(Input.Keys.ENTER);
+        if (!isSetLuck && act){
+            rolled = em.getPlayState().getDice().rollDice();
+            em.getCurrentPayer().setLuck(rolled);
+            System.out.println("luck" + em.getPlayState().getDice().getRolled());
             System.out.println(em.getCurrentPayer().getLuck());
             isSetLuck = true;
+            act = false;
         }
-        if (em.getPlayState().getKm().isAction() && isSetLuck && !isSetPower) {
+        if (!isSetPower && isSetLuck && act){
+            rolled = em.getPlayState().getDice().rollDice();
+            em.getCurrentPayer().setPower(rolled);
+            System.out.println("power" + em.getPlayState().getDice().getRolled());
+            System.out.println(em.getCurrentPayer().getPower());
+            isSetPower = true;
+            act = false;
+        }
+        if (!isSetSpeed && isSetPower && isSetLuck && act){
+            rolled = em.getPlayState().getDice().rollDice();
+            em.getCurrentPayer().setSpeed(rolled);
+            System.out.println("speed" + em.getPlayState().getDice().getRolled());
+            System.out.println(em.getCurrentPayer().getSpeed());
+            isSetSpeed = true;
+        }
+
+
+        /*if (em.getPlayState().getKm().isAction() && isSetLuck && !isSetPower) {
             em.getCurrentPayer().setPower(rollDice());
             System.out.println(em.getCurrentPayer().getPower());
             isSetPower = true;
@@ -79,8 +81,7 @@ public class GameLogic {
             //roll
             rollDice();
             // }
-
-        }
+        }*/
 
     }
 }
