@@ -1,12 +1,13 @@
 package States;
 
+import Entities.Creatures.Monster;
 import Entities.Creatures.Player;
 import Entities.Creatures.Position;
 import Entities.GameField.Dice;
+import Entities.GameField.Field;
 import Entities.GameField.Items;
 import Logic.GameLogic;
 import Managers.EntitiesManager;
-import Managers.KeysManager;
 import Managers.StatesManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -25,58 +26,70 @@ public class PlayState extends State {
     Texture p1;
     Texture p2;
     Dice dice;
-    Items itemsPl1;
-    Items itemsPl2;
-    KeysManager km;
+    Field field;
+    Items item;
+    Monster monster;
 
     public PlayState(StatesManager sm){
         super(sm);
     }
 
     public void init(){
+        em = new EntitiesManager(this);
 
         shapeRenderer = new ShapeRenderer();
-        em = new EntitiesManager(this);
-        player1 = new Player(em,new Position(((MyGdxGame.WIDTH * 3 / 4) + 30), ((MyGdxGame.HEIGHT / 2) - 30)));
-        player2 = new Player(em,new Position(((MyGdxGame.WIDTH / 4) - 25), ((MyGdxGame.HEIGHT / 2) + 55)));
-        player1.init();
-        player2.init();
+        player1 = new Player(em, new Position((int)((MyGdxGame.WIDTH - 880) / 2) + 44, 484 + 20));
+        player2 = new Player(em, new Position((int)((MyGdxGame.WIDTH - 880) / 2) + 44, 484));
+
         batch = new SpriteBatch();
-        gameField = new Texture("img/field1.png");
+        gameField = new Texture("img/field.png");
         p1 = new Texture("img/player1.png");
         p2 = new Texture("img/player2.png");
+
         dice = new Dice(em);
         dice.init();
-        logic = new GameLogic(em);
-        itemsPl1 = new Items(em);
-        itemsPl2 = new Items(em);
-        itemsPl1.init();
-        itemsPl2.init();
 
-        km = new KeysManager(em);
+        item = new Items(em);
+        item.init();
+
+        logic = new GameLogic(em);
         logic.init();
+
+        field = new Field(em);
+        field.init();
+
+        monster = new Monster(em);
     }
 
-    public void update(float dt){
+    public void update(float dt) throws InterruptedException {
+        em.update(dt);
 
         player1.update(dt);
         player2.update(dt);
-        em.update(dt);
+
         dice.update(dt);
+        item.update(dt);
+
         logic.update(dt);
-        km.update(dt);
 
     }
 
     public void draw(){
         batch.begin();
-        batch.draw(gameField,(MyGdxGame.WIDTH - gameField.getWidth()) / 2f, MyGdxGame.HEIGHT / 18 );
+        //field
+        batch.draw(gameField,(MyGdxGame.WIDTH - gameField.getWidth()) / 2f, 0 );
+        //players
         batch.draw(p1, 0,MyGdxGame.HEIGHT - p1.getHeight());
         batch.draw(p2,MyGdxGame.WIDTH - p2.getWidth(),MyGdxGame.HEIGHT - p2.getHeight());
-        batch.draw(dice.getDice(),(MyGdxGame.WIDTH - dice.getDice().getWidth()) / 2f,(MyGdxGame.HEIGHT  - 2 * dice.getDice().getHeight()));
-        batch.draw(itemsPl1.getFoundItems(),0,MyGdxGame.HEIGHT - 2 * p1.getHeight() + 20);
-        batch.draw(itemsPl2.getFoundItems(),MyGdxGame.WIDTH - p2.getWidth(),MyGdxGame.HEIGHT - 2 * p2.getHeight() + 20);
+        //dice
+        batch.draw(dice.getDice(),(MyGdxGame.WIDTH - dice.getDice().getWidth()) / 2f,
+                (MyGdxGame.HEIGHT  - 2 * dice.getDice().getHeight()));
+        //items
+        batch.draw(item.itemImg(player1.getCountItems()),p1.getWidth() + 10,MyGdxGame.HEIGHT - item.getFoundItems().getHeight() - 10);
+        batch.draw(item.itemImg(player2.getCountItems()),MyGdxGame.WIDTH - p2.getWidth() - item.getFoundItems().getWidth() -10,
+                MyGdxGame.HEIGHT - item.getFoundItems().getHeight() - 10);
         batch.end();
+        //player on field
         player1.draw(shapeRenderer, 10/255f, 0,41/255f,1);
         player2.draw(shapeRenderer,0, 126/255f, 143/255f,1);
 
@@ -90,7 +103,6 @@ public class PlayState extends State {
     public Player getPlayer1() {
         return player1;
     }
-
     public Player getPlayer2() {
         return player2;
     }
@@ -98,20 +110,11 @@ public class PlayState extends State {
     public Dice getDice() {
         return dice;
     }
-
-    public Items getItemsPl1() {
-        return itemsPl1;
+    public Field getField() {
+        return field;
     }
-
-    public Items getItemsPl2() {
-        return itemsPl2;
+    public Items getItems(){
+        return item;
     }
-
-    public KeysManager getKm() {
-        return km;
-    }
-
-    public GameLogic getLogic() {
-        return logic;
-    }
+    public Monster getMonster(){return monster;}
 }

@@ -7,8 +7,8 @@ import java.util.Random;
 
 public class Dice {
 
-    Texture dice;
     EntitiesManager em;
+    Texture dice;
     int rolled;
 
     public Dice (EntitiesManager em) {
@@ -17,10 +17,6 @@ public class Dice {
 
     public void init() {
         diceImg(6);
-    }
-
-    public void update(float dt) {
-        diceImg(rolled);
     }
 
     public int random(int luck){
@@ -55,6 +51,10 @@ public class Dice {
         if (random == 5) dice = new Texture("img/dice/dice5.png");
         if (random == 6) dice = new Texture("img/dice/dice6.png");
         return dice;
+    }
+
+    public void update(float dt) {
+        diceImg(rolled);
     }
 
 }

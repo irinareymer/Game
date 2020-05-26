@@ -32,7 +32,7 @@ public class StatesManager {
         }
     }
 
-    public void update(float dt){
+    public void update(float dt) throws InterruptedException {
         state.update(dt);
     }
     public void draw(){

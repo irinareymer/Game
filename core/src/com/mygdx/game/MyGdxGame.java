@@ -24,7 +24,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(218/255f, 196/255f, 154/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		sm.update(Gdx.graphics.getDeltaTime());
+		try {
+			sm.update(Gdx.graphics.getDeltaTime());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		sm.draw();
 	}
 

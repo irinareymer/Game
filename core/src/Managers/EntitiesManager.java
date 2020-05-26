@@ -12,23 +12,22 @@ public class EntitiesManager {
         this.playState = playState;
     }
 
+    public PlayState getPlayState() {
+        return playState;
+    }
+
     public Player getCurrentPayer() {
         return currentPlayer;
     }
-
-    public void update (float dt) {
-    }
-
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
-
     public void changeCurrentPlayer(Player currentPlayer){
-        if (currentPlayer == playState.getPlayer1()) currentPlayer = playState.getPlayer2();
-        else currentPlayer = playState.getPlayer1();
+        if (currentPlayer == playState.getPlayer1()) this.currentPlayer = playState.getPlayer2();
+        else this.currentPlayer = playState.getPlayer1();
     }
 
-    public PlayState getPlayState() {
-        return playState;
+
+    public void update (float dt) {
     }
 }
