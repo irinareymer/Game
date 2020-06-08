@@ -1,17 +1,18 @@
-package Entities.GameField;
+package Model.GameField;
 
-import Entities.Creatures.Position;
-import Managers.EntitiesManager;
-import com.mygdx.game.MyGdxGame;
+import Model.Creatures.Position;
+import Model.EntitiesManager;
+import Model.PlayState;
+import Controller.MyGdxGame;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Field {
-    protected EntitiesManager em;
+    protected PlayState em;
     Map<Integer, Position> field = new HashMap<>();
 
-    public Field(EntitiesManager em) {
+    public Field(PlayState em) {
         this.em = em;
     }
     //map_field init

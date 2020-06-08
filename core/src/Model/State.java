@@ -1,9 +1,8 @@
-package States;
+package Model;
 
-import Managers.StatesManager;
+import Controller.StatesManager;
 
 public abstract class State {
-
     protected StatesManager sm;
 
     protected State(StatesManager sm){
@@ -12,7 +11,9 @@ public abstract class State {
     }
     public abstract void init();
     public abstract void update(float dt) throws InterruptedException;
-    public abstract void draw();
     public abstract void dispose();
+    //public abstract void input();
+
+    public abstract State getCurrentState();
 
 }

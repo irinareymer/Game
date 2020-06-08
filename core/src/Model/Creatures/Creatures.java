@@ -1,4 +1,4 @@
-package Entities.Creatures;
+package Model.Creatures;
 
 public class Creatures {
 
