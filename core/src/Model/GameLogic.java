@@ -88,11 +88,11 @@ public class GameLogic {
             player.setSpeedIncreased(true);
         }//Luck increased
         if(player.getCurrentField() == 14 && !player.isLuckIncreased()) {
-            player.setSpeed(player.getLuck() + 1);
+            player.setLuck(player.getLuck() + 1);
             player.setLuckIncreased(true);
         }//Power increased
         if(player.getCurrentField() == 23 && !player.isPowerIncreased()) {
-            player.setSpeed(player.getPower() + 1);
+            player.setPower(player.getPower() + 1);
             player.setPowerIncreased(true);
         }
     }
@@ -132,7 +132,6 @@ public class GameLogic {
             player.setShow(false);
             player.setWannaFight(false);
             player.setNotWannaFight(false);
-            player.setNF(false);
             player.setItemFound(false);
             player.setBlocked(true);
             br = false;
@@ -236,7 +235,6 @@ public class GameLogic {
             player.setShow(false);
             player.setWannaFight(false);
             player.setNotWannaFight(false);
-            player.setNF(false);
             player.setItemFound(false);
             player.setWin(false);
             br = false;
@@ -297,7 +295,6 @@ public class GameLogic {
                 player.setShow(false);
                 player.setWannaFight(false);
                 player.setNotWannaFight(false);
-                player.setNF(false);
                 player.setItemFound(false);
                 player.setBlocked(false);
                 br = false;

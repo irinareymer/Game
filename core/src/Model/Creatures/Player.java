@@ -244,12 +244,6 @@ public class Player extends Creatures {
         return notWannaFight;
     }
 
-    public void setNF(boolean nf){
-        this.nf = nf;
-    }
-    public boolean getNF(){
-        return nf;
-    }
 }
 
 
