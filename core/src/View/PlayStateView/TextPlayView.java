@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 public class TextPlayView {
     private SpriteBatch spriteBatch;
     private BitmapFont font;
-    private BitmapFont fontExit;
     final String FONT_CHARS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyz" +
             "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
 
@@ -24,12 +23,6 @@ public class TextPlayView {
         parameter1.characters  = FONT_CHARS;
         font = generator.generateFont(parameter1);
         font.setColor(Color.BLACK);
-
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter2.size = 5;
-        parameter2.characters  = FONT_CHARS;
-        fontExit = generator.generateFont(parameter1);
-        fontExit.setColor(Color.BLACK);
     }
 
     public void update(float dt){ }
@@ -194,9 +187,9 @@ public class TextPlayView {
         //exit
         if(ps.getCurrentPayer().isExit()){
             font.draw(spriteBatch,"Покинуть игру?",500,400);
-            font.draw(spriteBatch, "Нажми Y, если хочешь покинуть игру." + ln+
+            font.draw(spriteBatch, "Нажми SPACE, если хочешь покинуть игру." + ln+
                     "(данные текущей игры не сохранятся)" +ln+
-                    "Нажми N, еслии хочешь продолжить.",350,320);
+                    "Нажми ENTER, еслии хочешь продолжить.",350,320);
         }
         spriteBatch.end();
     }

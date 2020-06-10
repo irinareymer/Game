@@ -6,7 +6,6 @@ import Model.Creatures.Position;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
-
 public class GameLogic {
 
     protected PlayState em;
@@ -27,8 +26,8 @@ public class GameLogic {
 
     //exit
     public void isWannaExit(Player player){
-        boolean yes = Gdx.input.isKeyJustPressed(Input.Keys.Y);
-        boolean no = Gdx.input.isKeyJustPressed(Input.Keys.N);
+        boolean yes = Gdx.input.isKeyJustPressed(Input.Keys.SPACE);
+        boolean no = Gdx.input.isKeyJustPressed(Input.Keys.ENTER);
         if(yes){
             no = false;
             em.getSM().setState(StatesManager.TypeState.MENU);
@@ -198,17 +197,6 @@ public class GameLogic {
             if(currentPower < currentPowerOfMonster && player.getPower() == 1 && r){
                     player.setBlocked(true);
                     player.setLose(true);
-                    if(player.isBlocked()) System.out.println("b");
-                    if(!player.isBlocked()) System.out.println("not b");
-                   /* int mapFieldKey = 28 + player.getCurrentField() - 1;
-                    Player checkPose = em.getCurrentPayer();
-                    if (checkPose.getCurrentField() == mapFieldKey) {
-                        checkPose.setPose(new Position(checkPose.getPosition().getX(), checkPose.getPosition().getY() + 20));
-                    }
-                    em.changeCurrentPlayer(checkPose);
-                    player.setCurrentField(mapFieldKey);
-                    player.setPose(em.getField().getFieldPosition(player.getCurrentField()));
-                    //checkSpecialFields(player);*/
                     r = false;
                 show = false;
 

@@ -23,31 +23,16 @@ public class Player extends Creatures {
     boolean showResult = false;
     boolean show = false;
     boolean notWannaFight = false;
-    boolean nf = false;
     boolean checkSpecialField = false;
     boolean win = false;
     boolean end = false;
     boolean moveStarted = false;
     boolean lose = false;
-    //private int[] shapex;
-    //private int[] shapey;
-
-    boolean yes;
     boolean exit = false;
-    boolean enter;
-    boolean space;
-
-    public void setYes(boolean y){yes = y;}
-    public void setNo(boolean n){yes = n;}
-    public void setEnter(boolean e){yes = e;}
-    public void setSpace(boolean s){yes = s;}
-
 
     public Player(PlayState em, Position pose) {
         this.pose = pose;
         this.em = em;
-        //shapex = new int[4];
-        //shapey = new int[4];
     }
 
     public void setLose(boolean lose){
@@ -163,24 +148,6 @@ public class Player extends Creatures {
     public void setEnd(boolean end) {
         this.end = end;
     }
-
-
-    /*public void setShape(){
-        shapex[0] = (int) (pose.getX() + MathUtils.cos(0) * 20);
-        shapey[0] = (int) (pose.getY() + MathUtils.sin(0) * 20);
-
-        shapex[1] = (int) (pose.getX() + MathUtils.cos(- 3.1415f / 2) * 20);
-        shapey[1] = (int) (pose.getY() + MathUtils.sin(- 3.1415f / 2) * 20);
-
-        shapex[2] = (int) (pose.getX() + MathUtils.cos(3.1415f) * 20);
-        shapey[2] = (int) (pose.getY() + MathUtils.sin(3.1415f) * 20);
-
-        shapex[3] = (int) (pose.getX() + MathUtils.cos(3.1415f / 2) * 20);
-        shapey[3] = (int) (pose.getY() + MathUtils.sin(3.1415f / 2) * 20);
-    }
-    public void update(float dt){
-        setShape();
-    }*/
 
     public boolean readyToShowPoints(){
         return readyToShowPoints;
