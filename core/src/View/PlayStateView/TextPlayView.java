@@ -1,6 +1,7 @@
 package View.PlayStateView;
 
 import Controller.MyGdxGame;
+import Controller.Save;
 import Model.Creatures.Player;
 import Model.PlayState;
 import com.badlogic.gdx.Gdx;
@@ -178,10 +179,14 @@ public class TextPlayView {
         //end of the game
         if((ps.getPlayer1().getCountItems() == 3 || ps.getPlayer2().getCountItems() == 3) &&
                 !ps.getCurrentPayer().isReadyToShowResult()) {
-            String winner;
-            if(ps.getPlayer1().getCountItems() == 3) winner = ps.getPlayer1().getName();
-            else winner = ps.getPlayer2().getName();
-            font.draw(spriteBatch, winner+ " победил(а)!"+ ln +"Конец игры!", (640 - (currName*23+8*23)/2f),340);
+            Player winner;
+            if(ps.getPlayer1().getCountItems() == 3) winner = ps.getPlayer1();
+            else winner = ps.getPlayer2();
+            font.draw(spriteBatch, winner.getName()+ " победил(а)!"+ ln +"Конец игры!", (640 - (currName*23+8*23)/2f),400);
+            int total = winner.getPower() + winner.getSpeed() + winner.getLuck();
+            if(Save.data.isScoreHigher(winner.getPower())) {
+                font.draw(spriteBatch, "Новый рекорд: " + total + "!", 475, 400);
+            }
             font.draw(spriteBatch, "Нажми ESCAPE, чтобы выйти в главное меню", 290, 165);
         }
         //exit
@@ -189,7 +194,7 @@ public class TextPlayView {
             font.draw(spriteBatch,"Покинуть игру?",500,400);
             font.draw(spriteBatch, "Нажми SPACE, если хочешь покинуть игру." + ln+
                     "(данные текущей игры не сохранятся)" +ln+
-                    "Нажми ENTER, еслии хочешь продолжить.",350,320);
+                    "Нажми ENTER, если хочешь продолжить.",325,320);
         }
         spriteBatch.end();
     }

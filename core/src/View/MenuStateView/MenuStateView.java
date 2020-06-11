@@ -45,7 +45,7 @@ public class MenuStateView extends View {
         menuItems = new String[]{
                 "Начать игру",
                 "Правила",
-                "Результаты игр (нет)",
+                "Результаты игр",
                 "Выход"
         };
     }

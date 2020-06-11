@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.Save;
 import Controller.StatesManager;
 import Model.Creatures.Player;
 import Model.Creatures.Position;
@@ -17,6 +18,8 @@ public class GameLogic {
     boolean decided = false;
     boolean res = false;
     boolean br = false;
+    boolean over = false;
+
 
     public GameLogic(PlayState em) {
        this.em = em;
@@ -306,6 +309,7 @@ public class GameLogic {
             em.getCurrentPayer().setExit(true);
             exit=false;
         }
+
         //start params for players
         if (!em.getPlayer1().isParametersSet() && !em.getPlayer1().isExit()) start(em.getPlayer1());
         if (!em.getPlayer2().isParametersSet() && em.getPlayer1().isParametersSet() && !em.getPlayer2().isExit()) start(em.getPlayer2());
@@ -340,7 +344,9 @@ public class GameLogic {
         }
 
         if ((em.getPlayer1().getCountItems() == 3 ||
-                em.getPlayer2().getCountItems() == 3)  ) {
+                em.getPlayer2().getCountItems() == 3)) {
+            if(em.getPlayer1().getCountItems() == 3) gameOver(em.getPlayer1());
+            if(em.getPlayer2().getCountItems() == 3) gameOver(em.getPlayer2());
             boolean next = Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE);
             if(next){
                 em.getSM().setState(StatesManager.TypeState.MENU);
@@ -348,7 +354,15 @@ public class GameLogic {
         }
     }
 
-    public void update(float dt) throws InterruptedException {
+    public void gameOver(Player player){
+        if(Save.data.isScoreHigher(player.getPower()) && !over){
+            Save.data.addScore(player.getPower() + player.getSpeed() + player.getLuck(), player.getName());
+            Save.save();
+            over = true;
+        }
+    }
+
+    public void update(float dt){
         play();
     }
 }

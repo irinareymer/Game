@@ -110,15 +110,6 @@ public class PlayState extends State  {
     }
 
     public void input(){
-      /*  player1.setYes(GameKeys.isPressed(GameKeys.Y));
-        player1.setNo(GameKeys.isPressed(GameKeys.N));
-        player1.setEnter(GameKeys.isPressed(GameKeys.ENTER));
-        player1.setSpace(GameKeys.isPressed(GameKeys.SPACE));
-
-        player2.setYes(GameKeys.isPressed(GameKeys.Y));
-        player2.setNo(GameKeys.isPressed(GameKeys.N));
-        player2.setEnter(GameKeys.isPressed(GameKeys.ENTER));
-        player2.setSpace(GameKeys.isPressed(GameKeys.SPACE)); */
     }
 
     @Override
