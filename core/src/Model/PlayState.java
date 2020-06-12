@@ -47,7 +47,7 @@ public class PlayState extends State  {
          player2.setName("----------");
          player2.setExit(false);
          player1.setExit(false);
-         newName = new char[] {'A','A','A','A','A','A','A','A','A','A'};
+         newName = new char[] {'А','А','А','А','А','А','А','А','А','А'};
          currentChar = 0;
 
          logic = new GameLogic(this);
@@ -60,27 +60,45 @@ public class PlayState extends State  {
         monster = new Monster(this);
 
      }
+    //exit
+    public void isWannaExit(Player player){
+        boolean yes = Gdx.input.isKeyJustPressed(Input.Keys.SPACE);
+        boolean no = Gdx.input.isKeyJustPressed(Input.Keys.ENTER);
+        if(yes){
+            no = false;
+            sm.setState(StatesManager.TypeState.MENU);
+        }
+        if(no) {
+            player.setExit(false);
+            yes = false;
+        }
+    }
+
 
     public void inputName(Player player){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            player.setExit(true);
+            isWannaExit(player);
+        }
         setCurrentPlayer(player);
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)){
             if(newName[currentChar] == '_'){
-                newName[currentChar]='Z';
+                newName[currentChar]='Я';
             }
             else {
                 newName[currentChar]--;
-                if(newName[currentChar] < 'A'){
+                if(newName[currentChar] < 'А'){
                     newName[currentChar] = '_';
                 }
             }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
             if(newName[currentChar] == '_'){
-                newName[currentChar]='A';
+                newName[currentChar]='А';
             }
             else {
                 newName[currentChar]++;
-                if(newName[currentChar] > 'Z'){
+                if(newName[currentChar] > 'Я'){
                     newName[currentChar] = '_';
                 }
             }
@@ -101,7 +119,7 @@ public class PlayState extends State  {
                 name.append(newName[i]);
             }
             player.setName(name.toString());
-            newName = new char[] {'A','A','A','A','A','A','A','A','A','A'};
+            newName = new char[] {'А','А','А','А','А','А','А','А','А','А'};
             currentChar = 0;
             player.setIsNameSet(true);
         }

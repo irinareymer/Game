@@ -57,5 +57,7 @@ public class ScoreView extends View {
     @Override
     public void dispose() {
         batch.dispose();
+        font.dispose();
+        fontTitle.dispose();
     }
 }

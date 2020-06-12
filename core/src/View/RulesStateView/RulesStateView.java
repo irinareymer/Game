@@ -59,5 +59,7 @@ public class RulesStateView extends View {
 
     public void dispose() {
         batch.dispose();
+        font.dispose();
+        fontTitle.dispose();
     }
 }

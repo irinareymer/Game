@@ -53,7 +53,7 @@ public class TextPlayView {
             font.draw(spriteBatch, "Привет, "+ps.getCurrentPayer().getName() +"!",
                     (640 - (currName*23 + 7*23)/2f),400);
             font.draw(spriteBatch, "Давай установим исходные параметры!", 325, 340);
-            font.draw(spriteBatch,  "Нажми ENTER, чтобы бросить кости." + ln +
+            font.draw(spriteBatch,  "Нажми ENTER, чтобы бросить кубик." + ln +
                     "Начнём с удачи." +ln+"Брось кубик (нажми ENTER).", 325, 285);
         }
         if (ps.getCurrentPayer().getLuck() != 0 && ps.getCurrentPayer().getPower() == 0 && !ps.getCurrentPayer().isExit()) {
@@ -122,13 +122,13 @@ public class TextPlayView {
         }
         //if want to fight
         if(ps.getCurrentPayer().isFight() && !ps.getCurrentPayer().isShow() && !ps.getCurrentPayer().isExit()){
-            font.draw(spriteBatch, "Брось кости, чтобы увеличить силу!", 350, 300);
+            font.draw(spriteBatch, "Брось кубик, чтобы увеличить силу!", 350, 300);
         }
         //results of fight
         if(ps.getCurrentPayer().isWin() && !ps.getCurrentPayer().isShow() &&!ps.getCurrentPayer().isExit()) {
             int currentPlayerPower = ps.getCurrentPayer().getIncreasedPower() + ps.getCurrentPayer().getPower();
             int currentMonsterPower= ps.getMonster().getIncreasedPowerOfMonster() + ps.getMonster().getPowerOfMonster();
-            font.draw(spriteBatch, "Монстр тоже бросил кости...выпало "
+            font.draw(spriteBatch, "Монстр тоже бросил кубик...выпало "
                     + ps.getMonster().getIncreasedPowerOfMonster() + "." +ln+
                     "теперь твоя текущая сила " + currentPlayerPower +","+ ln+
                     "текущая сила монстра " + currentMonsterPower +".", 310, 350);
@@ -161,9 +161,15 @@ public class TextPlayView {
             }
         }
         //if not wanna fight
-        if( ps.getCurrentPayer().notWannaFight() && !ps.getCurrentPayer().isExit()) {
+        if( ps.getCurrentPayer().notWannaFight() && !ps.getCurrentPayer().isExit() && ps.getCurrentPayer().getSpeed() == 1) {
             font.draw(spriteBatch,  ps.getCurrentPayer().getName() + "!", (640 - (currName * 23 ) / 2f) ,400);
             font.draw(spriteBatch, "Ты пропускаешь следующий ход.", 350, 340);
+        }
+        if( ps.getCurrentPayer().notWannaFight() && !ps.getCurrentPayer().isExit() && ps.getCurrentPayer().getSpeed() > 1) {
+            font.draw(spriteBatch,  ps.getCurrentPayer().getName() + "!", (640 - (currName * 23 ) / 2f) ,400);
+            font.draw(spriteBatch, "Ты убежал(а) от монстра." +ln+
+                    "В следующий раз это будет сложне," +ln+
+                    "твоя скорость уменьшится.", 350, 340);
         }
         //lose move
         if(ps.getCurrentPayer().isBlocked() && !ps.getCurrentPayer().isLose() && !ps.getCurrentPayer().isExit()){
@@ -200,5 +206,9 @@ public class TextPlayView {
         }
         spriteBatch.end();
     }
-    public void dispose(){}
+    public void dispose(){
+        spriteBatch.dispose();
+        font.dispose();
+        sr.dispose();
+    }
 }

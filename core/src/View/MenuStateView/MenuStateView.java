@@ -88,6 +88,8 @@ public class MenuStateView extends View {
 
     public void dispose(){
         batch.dispose();
+        fontTitle.dispose();
+        font.dispose();
     }
 
 

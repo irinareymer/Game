@@ -111,13 +111,29 @@ public class PlayView extends View {
         batch.draw(iw.itemImg(ps.getPlayer1().getCountItems()),p1.getWidth() + 10,MyGdxGame.HEIGHT - iw.getFoundItems().getHeight() - 10 - 50);
         batch.draw(iw.itemImg(ps.getPlayer2().getCountItems()),MyGdxGame.WIDTH - p2.getWidth() - iw.getFoundItems().getWidth() -10,
                 MyGdxGame.HEIGHT - iw.getFoundItems().getHeight() - 10 - 50);
+        //exit
+        if(ps.getCurrentPayer().isExit()){
+            font.draw(batch,"Покинуть игру?",500,400);
+            font.draw(batch, "Нажми SPACE, если хочешь покинуть игру." + System.lineSeparator()+
+                    "(данные текущей игры не сохранятся)" +System.lineSeparator()+
+                    "Нажми ENTER, если хочешь продолжить.",325,320);
+            if(!ps.getPlayer1().isNameSet()) {
+                font.draw(batch, "Игрок_1", 210, 710);
+                font.draw(batch, "Игрок_2", MyGdxGame.WIDTH - 7 * 23 - 200, 710);
+            }
+            else if(!ps.getPlayer2().isNameSet() && ps.getPlayer1().isNameSet()) {
+                font.draw(batch, ps.getPlayer1().getName(), 210, 710);
+                font.draw(batch, "Игрок_2", MyGdxGame.WIDTH - 7 * 23 - 200, 710);
+            }
+        }
         batch.end();
         //player on field
         pw1.draw(ps.getPlayer1().getPosition(),shapeRenderer, 10/255f, 0,41/255f,1);
         pw2.draw(ps.getPlayer2().getPosition(),shapeRenderer,0, 126/255f, 143/255f,1);
         //if(playState.getPlayer1().isParametersSet()).
 
-        if(!ps.getPlayer1().isNameSet()){
+
+        if(!ps.getPlayer1().isNameSet() && !ps.getPlayer1().isExit()){
             batch.begin();
             font.draw(batch, "Игрок_1",210,710);
             font.draw(batch, "Игрок_2",MyGdxGame.WIDTH - 7 * 23 - 200,710);
@@ -133,7 +149,7 @@ public class PlayView extends View {
             shapeRenderer.line(445 + 35* ps.currentChar, 205, 470+35*ps.currentChar, 205);
             shapeRenderer.end();
         }
-        if(!ps.getPlayer2().isNameSet() && ps.getPlayer1().isNameSet()){
+        if(!ps.getPlayer2().isNameSet() && ps.getPlayer1().isNameSet() && !ps.getPlayer2().isExit()){
             batch.begin();
             font.draw(batch,ps.getPlayer1().getName(),210,710);
             font.draw(batch, "Игрок_2",MyGdxGame.WIDTH - 7 * 23 - 200,710);
@@ -155,6 +171,8 @@ public class PlayView extends View {
     public void dispose(){
         batch.dispose();
         gameField.dispose();
+        shapeRenderer.dispose();
+        font.dispose();
     }
 
 

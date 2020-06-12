@@ -125,7 +125,7 @@ public class GameLogic {
             player.setLuckIncreased(false);
             player.setPowerIncreased(false);
             player.setSpeedIncreased(false);
-            em.changeCurrentPlayer(player);
+
             player.setMoveStarted(false);
             player.setReadyToShowPoints(false);
             player.setReadyToShowResult(false);
@@ -134,7 +134,12 @@ public class GameLogic {
             player.setWannaFight(false);
             player.setNotWannaFight(false);
             player.setItemFound(false);
-            player.setBlocked(true);
+            if(player.getSpeed() > 1){
+                player.setSpeed(player.getSpeed() - 1);
+                player.setBlocked(false);
+            }
+            else player.setBlocked(true);
+            em.changeCurrentPlayer(player);
             br = false;
             next = false;
         }
@@ -301,7 +306,6 @@ public class GameLogic {
 
 
     public void play() {
-        //todo set name
         //exit
         boolean exit = Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE);
         if(exit) {
