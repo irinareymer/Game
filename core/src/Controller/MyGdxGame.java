@@ -10,6 +10,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public static float HEIGHT;
 	public static float WIDTH;
 	private StatesManager sm;
+	//private Save save;
 	//private ViewManager vm;
 	
 	@Override
@@ -19,6 +20,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		//Gdx.input.setInputProcessor(new GameInput());
 
 		sm = new StatesManager();
+		//save = new Save();
+
 
 
 	}
@@ -29,8 +32,10 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
+
 		try {
 			sm.update(Gdx.graphics.getDeltaTime());
+
 			//vm.update(Gdx.graphics.getDeltaTime());
 
 		} catch (InterruptedException e) {

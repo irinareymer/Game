@@ -35,6 +35,7 @@ public class StatesManager {
         if (state == TypeState.MENU) {
             this.state = new MenuState(this);
             this.view = new MenuStateView((MenuState) this.getCurrentState());
+            Save.load();
 
         }
         if (state == TypeState.STATS){
