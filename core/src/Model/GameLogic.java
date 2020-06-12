@@ -20,7 +20,6 @@ public class GameLogic {
     boolean br = false;
     boolean over = false;
 
-
     public GameLogic(PlayState em) {
        this.em = em;
     }
@@ -309,9 +308,11 @@ public class GameLogic {
             em.getCurrentPayer().setExit(true);
             exit=false;
         }
-
+        //set name
+        if(!em.getPlayer1().isNameSet()) em.inputName(em.getPlayer1());
+        else if(!em.getPlayer2().isNameSet() && em.getPlayer1().isNameSet()) em.inputName(em.getPlayer2());
         //start params for players
-        if (!em.getPlayer1().isParametersSet() && !em.getPlayer1().isExit()) start(em.getPlayer1());
+        if (em.getPlayer2().isNameSet() &&!em.getPlayer1().isParametersSet() && !em.getPlayer1().isExit()) start(em.getPlayer1());
         if (!em.getPlayer2().isParametersSet() && em.getPlayer1().isParametersSet() && !em.getPlayer2().isExit()) start(em.getPlayer2());
         //game on field
         //press space to start this part
@@ -355,6 +356,7 @@ public class GameLogic {
     }
 
     public void gameOver(Player player){
+        Save.load();
         if(Save.data.isScoreHigher(player.getPower()) && !over){
             Save.data.addScore(player.getPower() + player.getSpeed() + player.getLuck(), player.getName());
             Save.save();

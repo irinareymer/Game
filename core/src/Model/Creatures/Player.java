@@ -29,11 +29,20 @@ public class Player extends Creatures {
     boolean moveStarted = false;
     boolean lose = false;
     boolean exit = false;
+    boolean isNameSet = false;
 
     public Player(PlayState em, Position pose) {
         this.pose = pose;
         this.em = em;
     }
+    public void setIsNameSet(boolean isNameSet){
+        this.isNameSet = isNameSet;
+    }
+    public boolean isNameSet() {
+        return isNameSet;
+    }
+
+
 
     public void setLose(boolean lose){
         this.lose = lose;

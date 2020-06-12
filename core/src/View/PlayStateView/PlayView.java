@@ -5,8 +5,12 @@ package View.PlayStateView;
 import Model.EntitiesManager;
 import Model.PlayState;
 import View.View;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import Controller.MyGdxGame;
 
@@ -24,7 +28,11 @@ public class PlayView extends View {
     PlayerView pw2;
     ItemsView iw;
     TextPlayView textw;
-    
+    private BitmapFont font;
+    final String FONT_CHARS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyz" +
+            "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
+
+
 
     public PlayView(PlayState ps) {
         //super(vm);
@@ -64,6 +72,12 @@ public class PlayView extends View {
 
         iw = new ItemsView();
         iw.init();
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/f1.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter1 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter1.size = 44;
+        parameter1.characters  = FONT_CHARS;
+        font = generator.generateFont(parameter1);
+        font.setColor(Color.BLACK);
 
     }
 
@@ -102,7 +116,40 @@ public class PlayView extends View {
         pw1.draw(ps.getPlayer1().getPosition(),shapeRenderer, 10/255f, 0,41/255f,1);
         pw2.draw(ps.getPlayer2().getPosition(),shapeRenderer,0, 126/255f, 143/255f,1);
         //if(playState.getPlayer1().isParametersSet()).
-        if(ps.getCurrentPayer() != null) textw.draw(ps);
+
+        if(!ps.getPlayer1().isNameSet()){
+            batch.begin();
+            font.draw(batch, "Игрок_1",210,710);
+            font.draw(batch, "Игрок_2",MyGdxGame.WIDTH - 7 * 23 - 200,710);
+            font.draw(batch, "Игрок_1, давай установим твоё имя."+System.lineSeparator()+
+                    "Используй стрелки, чтобы установить имя.", 320, 400);
+            for (int i = 0; i < 10; i++) {
+                font.draw(batch, Character.toString(ps.newName[i]), 450 +35*i, 250);
+            }
+            font.draw(batch, "Нажми SPACE, чтобы сменить игрока.", 350, 160);
+            batch.end();
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setColor(Color.RED);
+            shapeRenderer.line(445 + 35* ps.currentChar, 205, 470+35*ps.currentChar, 205);
+            shapeRenderer.end();
+        }
+        if(!ps.getPlayer2().isNameSet() && ps.getPlayer1().isNameSet()){
+            batch.begin();
+            font.draw(batch,ps.getPlayer1().getName(),210,710);
+            font.draw(batch, "Игрок_2",MyGdxGame.WIDTH - 7 * 23 - 200,710);
+            font.draw(batch, "Игрок_2, давай установим твоё имя."+System.lineSeparator()+
+                    "Используй стрелки, чтобы установить имя.", 320, 400);
+            for (int i = 0; i < 10; i++) {
+                font.draw(batch, Character.toString(ps.newName[i]), 450 +35*i, 250);
+            }
+            font.draw(batch, "Нажми SPACE, чтобы начать игру.", 350, 160);
+            batch.end();
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setColor(Color.RED);
+            shapeRenderer.line(445 + 35* ps.currentChar, 205, 470+35*ps.currentChar, 205);
+            shapeRenderer.end();
+        }
+        if(ps.getPlayer2().isNameSet()) textw.draw(ps);
     }
 
     public void dispose(){

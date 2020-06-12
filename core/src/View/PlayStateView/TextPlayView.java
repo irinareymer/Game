@@ -9,15 +9,18 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class TextPlayView {
     private SpriteBatch spriteBatch;
+    ShapeRenderer sr;
     private BitmapFont font;
     final String FONT_CHARS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyz" +
             "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
 
     public void init(){
         spriteBatch = new SpriteBatch();
+        sr = new ShapeRenderer();
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/f1.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter1 = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter1.size = 44;
@@ -30,7 +33,6 @@ public class TextPlayView {
 
     public void draw(PlayState ps) {
         String ln = System.lineSeparator();
-        int name2 = ps.getPlayer2().getName().length();
         int currName = ps.getCurrentPayer().getName().length();
 
         spriteBatch.begin();
@@ -41,7 +43,7 @@ public class TextPlayView {
         font.draw(spriteBatch, "Сила: " + ps.getPlayer1().getPower(),10,445);
         font.draw(spriteBatch, "Скорость: " + ps.getPlayer1().getSpeed(),10,390);
         //parameters for player2
-        font.draw(spriteBatch, ps.getPlayer2().getName(),MyGdxGame.WIDTH - name2 * 26 * 2,710);
+        font.draw(spriteBatch, ps.getPlayer2().getName(),MyGdxGame.WIDTH - 10 * 23 - 200,710);
         font.draw(spriteBatch, "Удача: " + ps.getPlayer2().getLuck(),1090,500);
         font.draw(spriteBatch, "Сила: " + ps.getPlayer2().getPower(),1090,445);
         font.draw(spriteBatch, "Скорость: " + ps.getPlayer2().getSpeed(),1090,390);
@@ -182,10 +184,10 @@ public class TextPlayView {
             Player winner;
             if(ps.getPlayer1().getCountItems() == 3) winner = ps.getPlayer1();
             else winner = ps.getPlayer2();
-            font.draw(spriteBatch, winner.getName()+ " победил(а)!"+ ln +"Конец игры!", (640 - (currName*23+8*23)/2f),400);
+            font.draw(spriteBatch, winner.getName()+ " победил(а)!"+ ln +"Конец игры!", (640 - (currName*23+8*23)/2f),330);
             int total = winner.getPower() + winner.getSpeed() + winner.getLuck();
             if(Save.data.isScoreHigher(winner.getPower())) {
-                font.draw(spriteBatch, "Новый рекорд: " + total + "!", 475, 400);
+                font.draw(spriteBatch, "Новый рекорд: " + total + "!", (640 - (currName*23+8*23)/2f), 400);
             }
             font.draw(spriteBatch, "Нажми ESCAPE, чтобы выйти в главное меню", 290, 165);
         }

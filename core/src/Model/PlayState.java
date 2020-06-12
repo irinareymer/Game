@@ -10,6 +10,10 @@ import Model.GameField.Dice;
 import Model.GameField.Field;
 import Model.GameField.Items;
 import View.PlayStateView.PlayView;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+
+import java.util.Arrays;
 
 public class PlayState extends State  {
 
@@ -24,6 +28,8 @@ public class PlayState extends State  {
     Player currentPlayer;
     Boolean ready;
     Boolean showResultOfFight;
+    public char[] newName;
+    public int currentChar;
 
 
     public PlayState(StatesManager sm){
@@ -37,10 +43,12 @@ public class PlayState extends State  {
          showResultOfFight = false;
          player1 = new Player(this, new Position((int)((MyGdxGame.WIDTH - 880) / 2) + 44, 484 + 20));
          player2 = new Player(this, new Position((int)((MyGdxGame.WIDTH - 880) / 2) + 44, 484));
-         player1.setName("NIKESH");
-         player2.setName("RINIREY");
+         player1.setName("----------");
+         player2.setName("----------");
          player2.setExit(false);
          player1.setExit(false);
+         newName = new char[] {'A','A','A','A','A','A','A','A','A','A'};
+         currentChar = 0;
 
          logic = new GameLogic(this);
          logic.init();
@@ -52,6 +60,52 @@ public class PlayState extends State  {
         monster = new Monster(this);
 
      }
+
+    public void inputName(Player player){
+        setCurrentPlayer(player);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)){
+            if(newName[currentChar] == '_'){
+                newName[currentChar]='Z';
+            }
+            else {
+                newName[currentChar]--;
+                if(newName[currentChar] < 'A'){
+                    newName[currentChar] = '_';
+                }
+            }
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
+            if(newName[currentChar] == '_'){
+                newName[currentChar]='A';
+            }
+            else {
+                newName[currentChar]++;
+                if(newName[currentChar] > 'Z'){
+                    newName[currentChar] = '_';
+                }
+            }
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
+            if(currentChar < 9){
+                currentChar++;
+            }
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
+            if(currentChar > 0){
+                currentChar--;
+            }
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            StringBuilder name = new StringBuilder();
+            for (int i = 0; i < 10; i++) {
+                name.append(newName[i]);
+            }
+            player.setName(name.toString());
+            newName = new char[] {'A','A','A','A','A','A','A','A','A','A'};
+            currentChar = 0;
+            player.setIsNameSet(true);
+        }
+    }
 
 
     public Player getPlayer1() {
