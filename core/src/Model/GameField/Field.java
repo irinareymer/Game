@@ -1,8 +1,7 @@
 package Model.GameField;
 
 import Model.Creatures.Position;
-import Model.EntitiesManager;
-import Model.PlayState;
+import Controller.States.PlayState;
 import Controller.MyGdxGame;
 
 import java.util.HashMap;
@@ -15,7 +14,7 @@ public class Field {
     public Field(PlayState em) {
         this.em = em;
     }
-    //map_field init
+
     public void init(){
         int c = (int) ((MyGdxGame.WIDTH - 880) / 2);
         field.put(0, new Position(c + 44,484));
@@ -51,5 +50,4 @@ public class Field {
     public Position getFieldPosition(int x){
        return field.getOrDefault(x % 28, new Position(0,0));
     }
-
 }

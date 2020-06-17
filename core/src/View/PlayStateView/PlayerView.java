@@ -1,24 +1,17 @@
 package View.PlayStateView;
 
 import Controller.MyGdxGame;
-import Model.Creatures.Player;
 import Model.Creatures.Position;
-import Model.EntitiesManager;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 
 public class PlayerView {
 
-    //EntitiesManager em;
-    //Player player;
     private int[] shapex;
     private int[] shapey;
     Position pose;
 
-
     public PlayerView() {
-        //this.em = em;
-        //this.player = player;
         shapex = new int[4];
         shapey = new int[4];
     }
@@ -36,10 +29,6 @@ public class PlayerView {
 
         shapex[3] = (int) (((int)(MyGdxGame.WIDTH - 880) / 2) + MathUtils.cos(3.1415f / 2) * 20);
         shapey[3] = (int) (484 + MathUtils.sin(3.1415f / 2) * 20);
-    }
-
-    public void setShape(){
-
     }
 
     public void draw(Position pose, ShapeRenderer shapeRenderer, float r, float g, float b, int a){
@@ -60,10 +49,6 @@ public class PlayerView {
             shapeRenderer.rectLine(shapex[i], shapey[i], shapex[j], shapey[j], 15);
         }
         shapeRenderer.end();
-    }
-
-    public void update(float dt){
-        //draw();
     }
 }
 

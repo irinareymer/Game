@@ -1,14 +1,12 @@
 package Model.Creatures;
 
-import Model.EntitiesManager;
-import Model.PlayState;
+import Controller.States.PlayState;
 
 import java.util.Random;
 
 public class Monster extends Creatures {
     protected PlayState em;
     int incPower;
-    boolean readyToShow = false;
 
     public Monster(PlayState em) {
         this.em = em;
@@ -16,7 +14,6 @@ public class Monster extends Creatures {
 
     Random rndm = new Random();
     int monsterPositionByDice = rndm.nextInt(5) + 1;
-
 
     public void setPowerOfMonster(int power) {
         this.power = power;
@@ -32,14 +29,6 @@ public class Monster extends Creatures {
         return incPower;
     }
 
-    public void setReadyToFight(boolean readyToShow) {
-        this.readyToShow = readyToShow;
-    }
-    public boolean isReadyToFight() {
-        return readyToShow;
-    }
-
-
     public boolean isMonsterHere(Position pose) {
         int first = 3 + monsterPositionByDice;
         int second = 11 + monsterPositionByDice;
@@ -52,6 +41,4 @@ public class Monster extends Creatures {
         Position monster3 = em.getField().getFieldPosition(third);
         return (pose == monster1 || pose == monster2 || pose == monster3);
     }
-
-
 }

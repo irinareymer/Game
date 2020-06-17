@@ -1,12 +1,9 @@
 package View.PlayStateView;
 
-import Model.GameField.Dice;
 import com.badlogic.gdx.graphics.Texture;
 
 public class DiceView {
     Texture dice;
-    //Dice roll;
-
 
     public void init() {
         diceImg(6);
@@ -25,9 +22,4 @@ public class DiceView {
         if (random == 6) dice = new Texture("img/dice/dice6.png");
         return dice;
     }
-
-    public void update(float dt) {
-        diceImg(0);
-    }
-
 }

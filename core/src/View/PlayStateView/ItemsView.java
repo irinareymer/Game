@@ -19,9 +19,4 @@ public class ItemsView {
     public Texture getFoundItems(){
         return foundItems;
     }
-
-    public void update(float dt){
-        itemImg(0);
-    }
-
 }

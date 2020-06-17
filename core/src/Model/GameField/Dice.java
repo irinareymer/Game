@@ -1,7 +1,6 @@
 package Model.GameField;
 
-import Model.EntitiesManager;
-import Model.PlayState;
+import Controller.States.PlayState;
 
 import java.util.Random;
 
@@ -33,5 +32,4 @@ public class Dice {
     public int getRolled() {
         return rolled;
     }
-
 }

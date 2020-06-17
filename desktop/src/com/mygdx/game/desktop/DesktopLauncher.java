@@ -16,7 +16,5 @@ public class DesktopLauncher {
 		config.forceExit = false;
 
 		new LwjglApplication(new MyGdxGame(), config);
-
-
 	}
 }

@@ -1,9 +1,7 @@
-package View.ScoreView;
+package View;
 
-import Model.ScoreState;
-import View.View;
+import Controller.States.ScoreState;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -38,12 +36,10 @@ public class ScoreView extends View {
         fontTitle.setColor(Color.BLACK);
     }
 
-    @Override
     public void update(float dt)  {
         draw();
     }
 
-    @Override
     public void draw() {
         batch.begin();
         fontTitle.draw(batch, "Результаты игр:", 475, 650);
@@ -54,7 +50,6 @@ public class ScoreView extends View {
         batch.end();
     }
 
-    @Override
     public void dispose() {
         batch.dispose();
         font.dispose();

@@ -1,9 +1,7 @@
-package View.MenuStateView;
+package View;
 
-import Model.MenuState;
-import View.View;
+import Controller.States.MenuState;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,19 +15,14 @@ public class MenuStateView extends View {
     private BitmapFont fontTitle;
     private String[] menuItems;
 
-    private int currentItem;
     final String FONT_CHARS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyz" +
             "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
 
-
-
     public MenuStateView(MenuState ms){
         this.ms = ms;
-        //this.currentItem = currentItem;
     }
 
     public void init(){
-        currentItem = 0;
         batch = new SpriteBatch();
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/f1.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter1 = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -50,20 +43,16 @@ public class MenuStateView extends View {
         };
     }
 
-
-    public void update(float dt) throws InterruptedException {
+    public void update(float dt) {
         draw();
-       // ms.update(dt);
-        input();
-
     }
 
-    public void draw() throws InterruptedException {
+    public void draw() {
         batch.begin();
         fontTitle.draw(batch, "РОДДЕРБИ!", 425, 600);
         int height = 525;
         for (int i = 0; i < menuItems.length; i++){
-            if(currentItem == i) font.setColor(Color.RED);
+            if(ms.currentItem == i) font.setColor(Color.RED);
             else font.setColor(Color.BLACK);
             height -= 75;
             font.draw(batch, menuItems[i], 450,height);
@@ -71,30 +60,9 @@ public class MenuStateView extends View {
         batch.end();
     }
 
-    public void input(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
-            if(currentItem >0) currentItem--;
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
-            if(currentItem < 3) currentItem++;
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            ms.select(currentItem);
-        }
-    }
-
-
-
-
     public void dispose(){
         batch.dispose();
         fontTitle.dispose();
         font.dispose();
     }
-
-
-
-
-
 }
-

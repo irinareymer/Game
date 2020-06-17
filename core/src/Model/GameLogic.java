@@ -4,6 +4,7 @@ import Controller.Save;
 import Controller.StatesManager;
 import Model.Creatures.Player;
 import Model.Creatures.Position;
+import Controller.States.PlayState;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
@@ -23,8 +24,6 @@ public class GameLogic {
     public GameLogic(PlayState em) {
        this.em = em;
     }
-
-    public void init() {}
 
     //exit
     public void isWannaExit(Player player){
@@ -164,9 +163,7 @@ public class GameLogic {
             act = false;
             decided=false;
             pressSpaceToContinue(player);
-
         }
-
     }
 
     //results of fight:
@@ -212,9 +209,6 @@ public class GameLogic {
             res = false;
         }
     }
-
-
-
 
     public void pressSpaceToContinue(Player player){
         boolean next = Gdx.input.isKeyJustPressed(Input.Keys.SPACE);
@@ -304,7 +298,6 @@ public class GameLogic {
         }
     }
 
-
     public void play() {
         //exit
         boolean exit = Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE);
@@ -340,14 +333,11 @@ public class GameLogic {
             if(!em.getCurrentPayer().isFight()&& em.getCurrentPayer().isReadyToShowResult() && res){
                 showResults(em.getCurrentPayer());
             }
-
         }
-
         if ((em.getPlayer1().getCountItems() == 3 ||
             em.getPlayer2().getCountItems() == 3 && !em.getCurrentPayer().isExit())  && em.getCurrentPayer().isReadyToShowResult() ){
             pressSpaceToContinue(em.getCurrentPayer());
         }
-
         if ((em.getPlayer1().getCountItems() == 3 ||
                 em.getPlayer2().getCountItems() == 3)) {
             if(em.getPlayer1().getCountItems() == 3) gameOver(em.getPlayer1());

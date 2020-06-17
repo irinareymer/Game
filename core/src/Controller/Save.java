@@ -8,6 +8,12 @@ public class Save {
 
     public static Data data;
 
+    public static void init(){
+        data = new Data();
+        data.init();
+        save();
+    }
+
     public static void save() {
         try{
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(System.getProperty("user.dir")+"scores.sv"));
@@ -38,11 +44,4 @@ public class Save {
         File file = new File(System.getProperty("user.dir")+"scores.sv");
         return file.exists();
     }
-
-    public static void init(){
-        data = new Data();
-        data.init();
-        save();
-    }
-
 }

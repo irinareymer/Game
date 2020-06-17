@@ -1,6 +1,6 @@
 package Model.Creatures;
 
-import Model.PlayState;
+import Controller.States.PlayState;
 
 public class Player extends Creatures {
 
@@ -23,9 +23,7 @@ public class Player extends Creatures {
     boolean showResult = false;
     boolean show = false;
     boolean notWannaFight = false;
-    boolean checkSpecialField = false;
     boolean win = false;
-    boolean end = false;
     boolean moveStarted = false;
     boolean lose = false;
     boolean exit = false;
@@ -41,8 +39,6 @@ public class Player extends Creatures {
     public boolean isNameSet() {
         return isNameSet;
     }
-
-
 
     public void setLose(boolean lose){
         this.lose = lose;
@@ -69,7 +65,6 @@ public class Player extends Creatures {
     public void setName(String name) {
         this.name = name;
     }
-
     public String getName() {
         return name;
     }
@@ -86,7 +81,6 @@ public class Player extends Creatures {
     public void setCountItems(int countItems) {
         this.countItems = countItems;
     }
-
     public int getCountItems() {
         return countItems;
     }
@@ -102,7 +96,6 @@ public class Player extends Creatures {
     public void setPose(Position pose) {
         this.pose = pose;
     }
-
     public Position getPosition() {
         return pose;
     }
@@ -111,7 +104,6 @@ public class Player extends Creatures {
     public int getCurrentField() {
         return currentField % 28;
     }
-
     public void setCurrentField(int currentField) {
         this.currentField = currentField % 28;
     }
@@ -120,7 +112,6 @@ public class Player extends Creatures {
     public boolean isBlocked() {
         return blocked;
     }
-
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
     }
@@ -129,7 +120,6 @@ public class Player extends Creatures {
     public boolean isWannaFight() {
         return wannaFight;
     }
-
     public void setWannaFight(boolean wannaFight) {
         this.wannaFight = wannaFight;
     }
@@ -137,7 +127,6 @@ public class Player extends Creatures {
     public boolean isFight() {
         return fight;
     }
-
     public void setFight(boolean fight) {
         this.fight = fight;
     }
@@ -145,17 +134,8 @@ public class Player extends Creatures {
     public boolean isWin() {
         return win;
     }
-
     public void setWin(boolean win) {
         this.win = win;
-    }
-
-    public boolean isEnd() {
-        return end;
-    }
-
-    public void setEnd(boolean end) {
-        this.end = end;
     }
 
     public boolean readyToShowPoints(){
@@ -193,21 +173,11 @@ public class Player extends Creatures {
         this.isSpeedIncreased = pi;
     }
 
-
-    public void setCheckSpecialField(boolean check){
-        this.checkSpecialField = check;
-
-    }
-    public  boolean checkSpecialField(){
-        return checkSpecialField;
-    }
     public void setReadyToShowResult(boolean showResult){
         this.showResult = showResult;
     }
-    public boolean isReadyToShowResult(){
-        return showResult;
+    public boolean isReadyToShowResult(){ return showResult;}
 
-    }
     public  boolean isShow(){
         return show;
     }
@@ -219,10 +189,4 @@ public class Player extends Creatures {
     public  boolean notWannaFight(){
         return notWannaFight;
     }
-
 }
-
-
-
-
-

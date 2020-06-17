@@ -1,4 +1,4 @@
-package Model;
+package Controller.States;
 
 import Controller.StatesManager;
 
@@ -9,11 +9,8 @@ public abstract class State {
         this.sm = sm;
         init();
     }
-    public abstract void init();
-    public abstract void update(float dt) throws InterruptedException;
-    public abstract void dispose();
-    //public abstract void input();
 
-    public abstract State getCurrentState();
+    public abstract void init();
+    public abstract void update(float dt);
 
 }

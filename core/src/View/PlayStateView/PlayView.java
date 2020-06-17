@@ -1,9 +1,6 @@
 package View.PlayStateView;
 
-//import Controller.ViewManager;
-
-import Model.EntitiesManager;
-import Model.PlayState;
+import Controller.States.PlayState;
 import View.View;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -16,7 +13,6 @@ import Controller.MyGdxGame;
 
 public class PlayView extends View {
 
-   // EntitiesManager em;
     PlayState ps;
     private ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
@@ -32,41 +28,25 @@ public class PlayView extends View {
     final String FONT_CHARS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyz" +
             "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
 
-
-
     public PlayView(PlayState ps) {
-        //super(vm);
-        //System.out.println("here");
         this.ps = ps;
-        //this.playState = playState;
     }
 
-
-
     public void init(){
-
-        //em = new EntitiesManager(playState);
-
         shapeRenderer = new ShapeRenderer();
         textw = new TextPlayView();
         textw.init();
-        //textw = new View.PlayStateView.TextView();
-
-        //player1 = new Player(em, new Position((int)((MyGdxGame.WIDTH - 880) / 2) + 44, 484 + 20));
-        //player2 = new Player(em, new Position((int)((MyGdxGame.WIDTH - 880) / 2) + 44, 484));
 
         pw1 = new PlayerView();
         pw1.init();
         pw2 = new PlayerView();
         pw2.init();
 
-
         batch = new SpriteBatch();
         gameField = new Texture("img/field.png");
         p1 = new Texture("img/player1.png");
         p2 = new Texture("img/player2.png");
 
-        //dice = new Dice(em);
         dw = new DiceView();
         dw.init();
 
@@ -78,26 +58,13 @@ public class PlayView extends View {
         parameter1.characters  = FONT_CHARS;
         font = generator.generateFont(parameter1);
         font.setColor(Color.BLACK);
-
     }
 
-
-    public void update(float dt) throws InterruptedException {
-        //ps.update(dt);
-
-        //textw.update(dt);
-        //pw1.update(dt);
-        //pw2.update(dt);
-
-
-        //dw.update(dt);
-        //iw.update(dt);
+    public void update(float dt)  {
         draw();
-
-
     }
 
-    public void draw() throws InterruptedException {
+    public void draw()  {
         batch.begin();
         //field
         batch.draw(gameField,(MyGdxGame.WIDTH - gameField.getWidth()) / 2f, 0 );
@@ -112,7 +79,7 @@ public class PlayView extends View {
         batch.draw(iw.itemImg(ps.getPlayer2().getCountItems()),MyGdxGame.WIDTH - p2.getWidth() - iw.getFoundItems().getWidth() -10,
                 MyGdxGame.HEIGHT - iw.getFoundItems().getHeight() - 10 - 50);
         //exit
-        if(ps.getCurrentPayer().isExit()){
+        if(ps.getPlayer1().isExit() || ps.getPlayer2().isExit()){
             font.draw(batch,"Покинуть игру?",500,400);
             font.draw(batch, "Нажми SPACE, если хочешь покинуть игру." + System.lineSeparator()+
                     "(данные текущей игры не сохранятся)" +System.lineSeparator()+
@@ -174,9 +141,4 @@ public class PlayView extends View {
         shapeRenderer.dispose();
         font.dispose();
     }
-
-
-
-
-
 }

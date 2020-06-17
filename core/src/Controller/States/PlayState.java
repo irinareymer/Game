@@ -1,23 +1,19 @@
-package Model;
-
+package Controller.States;
 
 import Controller.MyGdxGame;
 import Controller.StatesManager;
-import Model.Creatures.Monster;
 import Model.Creatures.Player;
 import Model.Creatures.Position;
-import Model.GameField.Dice;
 import Model.GameField.Field;
 import Model.GameField.Items;
-import View.PlayStateView.PlayView;
+import Model.Creatures.Monster;
+import Model.GameField.Dice;
+import Model.GameLogic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
-import java.util.Arrays;
+public class PlayState extends State {
 
-public class PlayState extends State  {
-
-   // EntitiesManager em;
     Player player1;
     Player player2;
     GameLogic logic;
@@ -31,14 +27,11 @@ public class PlayState extends State  {
     public char[] newName;
     public int currentChar;
 
-
     public PlayState(StatesManager sm){
         super(sm);
     }
 
      public void init(){
-        // em = new EntitiesManager(this);
-
          ready = false;
          showResultOfFight = false;
          player1 = new Player(this, new Position((int)((MyGdxGame.WIDTH - 880) / 2) + 44, 484 + 20));
@@ -51,15 +44,14 @@ public class PlayState extends State  {
          currentChar = 0;
 
          logic = new GameLogic(this);
-         logic.init();
 
         dice = new Dice(this);
         field = new Field(this);
         field.init();
         item = new Items(this);
         monster = new Monster(this);
-
      }
+
     //exit
     public void isWannaExit(Player player){
         boolean yes = Gdx.input.isKeyJustPressed(Input.Keys.SPACE);
@@ -73,7 +65,6 @@ public class PlayState extends State  {
             yes = false;
         }
     }
-
 
     public void inputName(Player player){
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
@@ -125,14 +116,12 @@ public class PlayState extends State  {
         }
     }
 
-
     public Player getPlayer1() {
         return player1;
     }
     public Player getPlayer2() {
         return player2;
     }
-
     public Dice getDice() {
         return dice;
     }
@@ -153,39 +142,17 @@ public class PlayState extends State  {
         if (currentPlayer == getPlayer1()) this.currentPlayer = getPlayer2();
         else this.currentPlayer = getPlayer1();
     }
-
     public void setReady(boolean ready){
         this.ready = ready;
     }
     public boolean isReady(){
         return ready;
     }
-    public void setShowResultOfFight(boolean show){
-        this.showResultOfFight = show;
-    }
-
-    public Boolean showResultOfFight() {
-        return showResultOfFight;
-    }
-
-    @Override
-    public State getCurrentState() {
-        return this;
-    }
-
-    public void update (float dt) throws InterruptedException {
-        logic.update(dt);
-    }
-
     public StatesManager getSM(){
         return sm;
     }
 
-    public void input(){
-    }
-
-    @Override
-    public void dispose() {
-
+    public void update (float dt) {
+        logic.update(dt);
     }
 }

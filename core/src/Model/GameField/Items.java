@@ -1,8 +1,7 @@
 package Model.GameField;
 
 import Model.Creatures.Position;
-import Model.EntitiesManager;
-import Model.PlayState;
+import Controller.States.PlayState;
 
 import java.util.Random;
 
@@ -29,5 +28,4 @@ public class Items {
         Position item3 = em.getField().getFieldPosition(third);
         return (pose == item1 || pose == item2 || pose == item3);
     }
-
 }

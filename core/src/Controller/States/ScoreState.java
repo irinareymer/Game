@@ -1,11 +1,11 @@
-package Model;
+package Controller.States;
 
 import Controller.Save;
 import Controller.StatesManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
-public class ScoreState extends  State {
+public class ScoreState extends State {
     public ScoreState(StatesManager sm) { super(sm);}
 
     public int[] scores;
@@ -22,13 +22,5 @@ public class ScoreState extends  State {
         if(next){
             sm.setState(StatesManager.TypeState.MENU);
         }
-    }
-
-    public void dispose() {
-
-    }
-
-    public State getCurrentState() {
-        return this;
     }
 }

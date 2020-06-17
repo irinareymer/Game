@@ -1,10 +1,7 @@
-package View.RulesStateView;
+package View;
 
-import Model.RulesState;
-import View.View;
-import com.badlogic.gdx.Files;
+import Controller.States.RulesState;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,12 +13,8 @@ public class RulesStateView extends View {
     private SpriteBatch batch;
     private BitmapFont font;
     private BitmapFont fontTitle;
-    FileHandle rules = Gdx.files.internal("rules.txt");
-    String text = rules.readString("UTF-8");
-
     final String FONT_CHARS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyz" +
             "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
-
 
     public RulesStateView(RulesState rs){
         this.rs = rs;
@@ -29,7 +22,6 @@ public class RulesStateView extends View {
 
     public void init() {
         batch = new SpriteBatch();
-
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/f1.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter1 = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter1.size = 46;
@@ -43,19 +35,16 @@ public class RulesStateView extends View {
         fontTitle.setColor(Color.BLACK);
     }
 
-
-    public void update(float dt) throws InterruptedException {
+    public void update(float dt) {
         draw();
     }
 
-
-    public void draw() throws InterruptedException {
+    public void draw() {
         batch.begin();
         fontTitle.draw(batch, "Правила игры", 475, 690);
-        font.draw(batch,text, 30, 600);
+        font.draw(batch, rs.text, 30, 600);
         batch.end();
     }
-
 
     public void dispose() {
         batch.dispose();

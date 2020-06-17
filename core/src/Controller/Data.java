@@ -9,9 +9,6 @@ public class Data implements Serializable {
     private int[] scores;
     private String[] names;
 
-    private String currentName;
-    private int currentScore;
-
     public Data(){
         scores = new int[MAX_SCORE];
         names = new String[MAX_SCORE];
@@ -21,18 +18,11 @@ public class Data implements Serializable {
         for (int i = 0; i < MAX_SCORE; i++){
             scores[i] = 0;
             names[i] = "--------";
-
         }
     }
 
     public int[] getScores(){return scores;}
     public String[] getNames(){return names;}
-
-    public int getCurrentScore() {return currentScore;}
-    public void setCurrentScore(int currentScore) {this.currentScore = currentScore;}
-
-    public String getCurrentName(){return  currentName;}
-    public void setCurrentName(String currentName){this.currentName = currentName;}
 
     public boolean isScoreHigher(int currentScore){
         return currentScore > scores[MAX_SCORE - 1];
@@ -59,5 +49,4 @@ public class Data implements Serializable {
             names[k + 1] = n;
         }
     }
-
 }

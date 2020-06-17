@@ -3,7 +3,7 @@ package View.PlayStateView;
 import Controller.MyGdxGame;
 import Controller.Save;
 import Model.Creatures.Player;
-import Model.PlayState;
+import Controller.States.PlayState;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
