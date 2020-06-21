@@ -3,7 +3,7 @@ package View.PlayStateView;
 import com.badlogic.gdx.graphics.Texture;
 
 public class ItemsView {
-    Texture foundItems;
+    private Texture foundItems;
 
     public void init() {
         itemImg(0);

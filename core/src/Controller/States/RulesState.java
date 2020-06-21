@@ -11,11 +11,13 @@ public class RulesState extends State {
     }
     public String text;
 
+    @Override
     public void init() {
         FileHandle rules = Gdx.files.internal("rules.txt");
         text = rules.readString("UTF-8");
     }
 
+    @Override
     public void update(float dt) {
         boolean next = Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE);
         if (next) {

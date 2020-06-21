@@ -6,11 +6,11 @@ import java.util.Random;
 
 public class Dice {
 
-    PlayState em;
-    int rolled;
+    private PlayState ps;
+    private int rolled;
 
-    public Dice (PlayState em) {
-        this.em = em;
+    public Dice (PlayState ps) {
+        this.ps = ps;
     }
 
     public int random(int luck){
@@ -25,7 +25,7 @@ public class Dice {
     }
 
     public int rollDice() {
-        rolled = random(em.getCurrentPayer().getLuck());
+        rolled = random(ps.getCurrentPayer().getLuck());
         return rolled;
     }
 

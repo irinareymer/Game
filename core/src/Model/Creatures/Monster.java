@@ -6,14 +6,14 @@ import java.util.Random;
 
 public class Monster extends Creatures {
     protected PlayState em;
-    int incPower;
+    private int incPower;
 
     public Monster(PlayState em) {
         this.em = em;
     }
 
     Random rndm = new Random();
-    int monsterPositionByDice = rndm.nextInt(5) + 1;
+    private int monsterPositionByDice = rndm.nextInt(5) + 1;
 
     public void setPowerOfMonster(int power) {
         this.power = power;

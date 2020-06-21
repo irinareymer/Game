@@ -8,11 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Field {
-    protected PlayState em;
-    Map<Integer, Position> field = new HashMap<>();
+    protected PlayState ps;
+    private static final Map<Integer, Position> field = new HashMap<>();
 
-    public Field(PlayState em) {
-        this.em = em;
+    public Field(PlayState ps) {
+        this.ps = ps;
     }
 
     public void init(){

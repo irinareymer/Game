@@ -9,7 +9,6 @@ public class PlayerView {
 
     private int[] shapex;
     private int[] shapey;
-    Position pose;
 
     public PlayerView() {
         shapex = new int[4];
@@ -17,7 +16,6 @@ public class PlayerView {
     }
 
     public void init(){
-        pose = new Position(0,0);
         shapex[0] = (int)(((int)(MyGdxGame.WIDTH - 880) / 2) + MathUtils.cos(0) * 20);
         shapey[0] = (int) (484 + MathUtils.sin(0) * 20);
 
@@ -51,6 +49,3 @@ public class PlayerView {
         shapeRenderer.end();
     }
 }
-
-
-

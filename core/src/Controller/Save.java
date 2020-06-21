@@ -6,7 +6,7 @@ import java.io.*;
 
 public class Save {
 
-    public static Data data;
+    private static Data data;
 
     public static void init(){
         data = new Data();
@@ -14,9 +14,14 @@ public class Save {
         save();
     }
 
+    public static Data getData() {
+        return data;
+    }
+
     public static void save() {
         try{
-            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(System.getProperty("user.dir")+"scores.sv"));
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    new FileOutputStream(System.getProperty("user.dir")+"scores.sv"));
             outputStream.writeObject(data);
             outputStream.close();
         }
@@ -31,7 +36,8 @@ public class Save {
             if(!saveFileExists()) {
                 init();
             }
-            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(System.getProperty("user.dir")+"scores.sv"));
+            ObjectInputStream inputStream = new ObjectInputStream(
+                    new FileInputStream(System.getProperty("user.dir")+"scores.sv"));
             data = (Data) inputStream.readObject();
             inputStream.close();
         }
@@ -40,6 +46,7 @@ public class Save {
             Gdx.app.exit();
         }
     }
+
     public  static boolean saveFileExists(){
         File file = new File(System.getProperty("user.dir")+"scores.sv");
         return file.exists();

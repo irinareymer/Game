@@ -6,14 +6,14 @@ import Controller.States.PlayState;
 import java.util.Random;
 
 public class Items {
-    protected PlayState em;
+    protected PlayState ps;
 
-    public Items(PlayState em) {
-        this.em = em;
+    public Items(PlayState ps) {
+        this.ps = ps;
     }
 
-    Random rndm = new Random();
-    int itemsPositionByDice = rndm.nextInt(5) + 1;
+    private Random rndm = new Random();
+    private int itemsPositionByDice = rndm.nextInt(5) + 1;
 
     public boolean isItemFound(Position pose){
         int first = 4 + itemsPositionByDice;
@@ -23,9 +23,9 @@ public class Items {
         if (second == 9 || second ==14 || second == 23) second++;
         if (third == 9 || third ==14 || third == 23) third++;
 
-        Position item1 = em.getField().getFieldPosition(first);
-        Position item2 = em.getField().getFieldPosition(second);
-        Position item3 = em.getField().getFieldPosition(third);
+        Position item1 = ps.getField().getFieldPosition(first);
+        Position item2 = ps.getField().getFieldPosition(second);
+        Position item3 = ps.getField().getFieldPosition(third);
         return (pose == item1 || pose == item2 || pose == item3);
     }
 }

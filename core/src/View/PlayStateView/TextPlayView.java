@@ -13,14 +13,15 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class TextPlayView {
     private SpriteBatch spriteBatch;
-    ShapeRenderer sr;
+    private ShapeRenderer shapeRenderer;
     private BitmapFont font;
     final String FONT_CHARS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyz" +
             "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
 
     public void init(){
         spriteBatch = new SpriteBatch();
-        sr = new ShapeRenderer();
+        shapeRenderer = new ShapeRenderer();
+        //font
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/f1.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter1 = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter1.size = 44;
@@ -29,12 +30,9 @@ public class TextPlayView {
         font.setColor(Color.BLACK);
     }
 
-    public void update(float dt){ }
-
     public void draw(PlayState ps) {
         String ln = System.lineSeparator();
         int currName = ps.getCurrentPayer().getName().length();
-
         spriteBatch.begin();
 
         //parameters for player1
@@ -100,7 +98,7 @@ public class TextPlayView {
         //rolled points
         if (!(ps.getPlayer1().getCountItems() == 3 || ps.getPlayer2().getCountItems() == 3) && !ps.getCurrentPayer().isExit()
                 && ((ps.getCurrentPayer().readyToShowPoints() && !ps.getCurrentPayer().notWannaFight() &&
-                 !ps.getCurrentPayer().isBlocked()) || (ps.getCurrentPayer().isWin() && !ps.getCurrentPayer().isShow()))) {
+                 !ps.getCurrentPayer().isBlocked()) || (ps.getCurrentPayer().isMonsterRolled() && !ps.getCurrentPayer().isShow()))) {
             font.draw(spriteBatch, ps.getCurrentPayer().getName() +", тебе выпало "+ ps.getDice().getRolled() +" !",
                     (640 - (currName*23 + 12*23)/2f), 400);
         }
@@ -125,7 +123,7 @@ public class TextPlayView {
             font.draw(spriteBatch, "Брось кубик, чтобы увеличить силу!", 350, 300);
         }
         //results of fight
-        if(ps.getCurrentPayer().isWin() && !ps.getCurrentPayer().isShow() &&!ps.getCurrentPayer().isExit()) {
+        if(ps.getCurrentPayer().isMonsterRolled() && !ps.getCurrentPayer().isShow() &&!ps.getCurrentPayer().isExit()) {
             int currentPlayerPower = ps.getCurrentPayer().getIncreasedPower() + ps.getCurrentPayer().getPower();
             int currentMonsterPower= ps.getMonster().getIncreasedPowerOfMonster() + ps.getMonster().getPowerOfMonster();
             font.draw(spriteBatch, "Монстр тоже бросил кубик...выпало "
@@ -134,7 +132,7 @@ public class TextPlayView {
                     "текущая сила монстра " + currentMonsterPower +".", 310, 350);
             font.draw(spriteBatch, "Нажми SPACE, чтобы увидеть результат.", 330, 165);
         }
-        if(ps.getCurrentPayer().isShow() && ps.getCurrentPayer().isWin() && !ps.getCurrentPayer().isExit()){
+        if(ps.getCurrentPayer().isShow() && ps.getCurrentPayer().isMonsterRolled() && !ps.getCurrentPayer().isExit()){
             int currentPlayerPower = ps.getCurrentPayer().getIncreasedPower() + ps.getCurrentPayer().getPower();
             int currentMonsterPower= ps.getMonster().getIncreasedPowerOfMonster() + ps.getMonster().getPowerOfMonster();
             if(currentPlayerPower > currentMonsterPower){
@@ -142,14 +140,14 @@ public class TextPlayView {
                         (640 - (currName*23 + 17*23)/2f) , 400);
                 font.draw(spriteBatch,
                         "Теперь твоя сила " + ps.getCurrentPayer().getPower()+"." + ln+
-                        "ого! Ты нашел артефакт!", 450, 340);
+                        "ого! Ты нашел(а) артефакт!", 430, 340);
             }
             if(currentPlayerPower == currentMonsterPower ){
                 font.draw(spriteBatch, ps.getCurrentPayer().getName() +", удача на твоей стороне..",
                         (640 - (currName*23 + 20*23)/2f) , 400);
                 font.draw(spriteBatch, "Ты победил(а) монстра!", 450, 340);
                 if(ps.getCurrentPayer().getLuck() >= 3)
-                    font.draw(spriteBatch,"Теперь твоя удача  "+ ps.getCurrentPayer().getLuck() +".",450,300);
+                    font.draw(spriteBatch,"Теперь твоя удача  "+ ps.getCurrentPayer().getLuck() +".",450,290);
             }
             if(currentPlayerPower < currentMonsterPower){
                 font.draw(spriteBatch, ps.getCurrentPayer().getName() +", ты проиграл(а) монстру..",
@@ -180,7 +178,7 @@ public class TextPlayView {
         //SPACE to continue
         if(!(ps.getPlayer1().getCountItems() == 3 || ps.getPlayer2().getCountItems() == 3) && !ps.getCurrentPayer().isExit()
                 && (ps.getCurrentPayer().readyToShowPoints() && !ps.getMonster().isMonsterHere(ps.getCurrentPayer().getPosition())
-                || ps.getCurrentPayer().notWannaFight() || (ps.getCurrentPayer().isShow() && ps.getCurrentPayer().isWin())
+                || ps.getCurrentPayer().notWannaFight() || (ps.getCurrentPayer().isShow() && ps.getCurrentPayer().isMonsterRolled())
                 || (ps.getCurrentPayer().isBlocked() && !ps.getCurrentPayer().isLose())))
             font.draw(spriteBatch, "Нажми SPACE чтобы продолжить игру.", 350, 165);
 
@@ -190,25 +188,27 @@ public class TextPlayView {
             Player winner;
             if(ps.getPlayer1().getCountItems() == 3) winner = ps.getPlayer1();
             else winner = ps.getPlayer2();
-            font.draw(spriteBatch, winner.getName()+ " победил(а)!"+ ln +"Конец игры!", (640 - (currName*23+8*23)/2f),330);
+            font.draw(spriteBatch, winner.getName()+ " победил(а)!"+ ln +"Конец игры!",
+                    640 - (currName*23+8*23)/2f,330);
             int total = winner.getPower() + winner.getSpeed() + winner.getLuck();
-            if(Save.data.isScoreHigher(winner.getPower())) {
-                font.draw(spriteBatch, "Новый рекорд: " + total + "!", (640 - (currName*23+8*23)/2f), 400);
+            if(Save.getData().isScoreHigher(total)) {
+                font.draw(spriteBatch, "Новый рекорд!" , (870 - (currName*23+8*23)/2f), 400);
             }
+            font.draw(spriteBatch, "Результат: " + total, (640 - (currName*23+8*23)/2f), 400);
             font.draw(spriteBatch, "Нажми ESCAPE, чтобы выйти в главное меню", 290, 165);
         }
         //exit
         if(ps.getCurrentPayer().isExit()){
             font.draw(spriteBatch,"Покинуть игру?",500,400);
-            font.draw(spriteBatch, "Нажми SPACE, если хочешь покинуть игру." + ln+
+            font.draw(spriteBatch, "Нажми Q, если хочешь покинуть игру." + ln+
                     "(данные текущей игры не сохранятся)" +ln+
-                    "Нажми ENTER, если хочешь продолжить.",325,320);
+                    "Нажми C, если хочешь продолжить.",325,320);
         }
         spriteBatch.end();
     }
     public void dispose(){
         spriteBatch.dispose();
         font.dispose();
-        sr.dispose();
+        shapeRenderer.dispose();
     }
 }

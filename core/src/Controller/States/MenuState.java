@@ -8,14 +8,16 @@ public class MenuState extends State {
     public MenuState(StatesManager sm){
         super(sm);
     }
-    public int currentItem;
 
+    private int currentItem;
+
+    @Override
     public void init(){
         currentItem = 0;
     }
 
-    public void update (float dt) {
-        input();
+    public int getCurrentItem() {
+        return currentItem;
     }
 
     public void select(int currentItem){
@@ -32,6 +34,7 @@ public class MenuState extends State {
             System.exit(0);
         }
     }
+
     public void input(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
             if(currentItem >0) currentItem--;
@@ -42,5 +45,10 @@ public class MenuState extends State {
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
             select(currentItem);
         }
+    }
+
+    @Override
+    public void update (float dt) {
+        input();
     }
 }

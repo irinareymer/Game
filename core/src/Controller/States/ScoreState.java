@@ -8,15 +8,25 @@ import com.badlogic.gdx.Input;
 public class ScoreState extends State {
     public ScoreState(StatesManager sm) { super(sm);}
 
-    public int[] scores;
-    public String[] names;
+    private int[] scores;
+    private String[] names;
 
-    public void init() {
-        Save.load();
-        scores = Save.data.getScores();
-        names = Save.data.getNames();
+    public String[] getNames() {
+        return names;
     }
 
+    public int[] getScores() {
+        return scores;
+    }
+
+    @Override
+    public void init() {
+        Save.load();
+        scores = Save.getData().getScores();
+        names = Save.getData().getNames();
+    }
+
+    @Override
     public void update(float dt) {
         boolean next = Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE);
         if(next){

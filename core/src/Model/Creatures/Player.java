@@ -6,61 +6,40 @@ public class Player extends Creatures {
 
     protected PlayState em;
 
-    String name;
-    Position pose;
-    int currentField = 0;
-    int countItems = 0;
-    boolean itemFound = false;
-    boolean blocked = false;
-    boolean wannaFight = false;
-    boolean fight = false;
-    boolean parametersSet = false;
-    boolean readyToShowPoints = false;
-    int increasedPower = 0;
-    boolean isPowerIncreased = false;
-    boolean isLuckIncreased = false;
-    boolean isSpeedIncreased = false;
-    boolean showResult = false;
-    boolean show = false;
-    boolean notWannaFight = false;
-    boolean win = false;
-    boolean moveStarted = false;
-    boolean lose = false;
-    boolean exit = false;
-    boolean isNameSet = false;
+    private String name;
+    private boolean isNameSet;
+    private boolean parametersSet;
+
+    private Position pose;
+    private int currentField;
+
+    private int countItems;
+    private boolean itemFound;
+
+    private boolean moveStarted;
+    private boolean blocked;
+
+    private boolean wannaFight;
+    private boolean notWannaFight;
+    private boolean fight;
+    private int increasedPower;
+    private boolean monsterRolled;
+    private boolean lose;
+
+    private boolean isPowerIncreased;
+    private boolean isLuckIncreased;
+    private boolean isSpeedIncreased;
+
+    private boolean readyToShowPoints;
+    private boolean showResult;
+    private boolean show;
+
+    private boolean exit;
 
     public Player(PlayState em, Position pose) {
         this.pose = pose;
         this.em = em;
     }
-    public void setIsNameSet(boolean isNameSet){
-        this.isNameSet = isNameSet;
-    }
-    public boolean isNameSet() {
-        return isNameSet;
-    }
-
-    public void setLose(boolean lose){
-        this.lose = lose;
-    }
-    public boolean isLose(){
-        return lose;
-    }
-
-    public void setExit(boolean exit){
-        this.exit = exit;
-    }
-    public boolean isExit(){
-        return exit;
-    }
-
-    public void setMoveStarted(boolean ms){
-        this.moveStarted = ms;
-    }
-    public boolean isMoveStarted(){
-        return moveStarted;
-    }
-
     //name
     public void setName(String name) {
         this.name = name;
@@ -69,27 +48,19 @@ public class Player extends Creatures {
         return name;
     }
 
+    public void setIsNameSet(boolean isNameSet){
+        this.isNameSet = isNameSet;
+    }
+    public boolean isNameSet() {
+        return isNameSet;
+    }
+
     //parameters
     public void setIsParametersSet(Boolean isSet) {
         this.parametersSet = isSet;
     }
     public boolean isParametersSet(){
         return parametersSet;
-    }
-
-    //items
-    public void setCountItems(int countItems) {
-        this.countItems = countItems;
-    }
-    public int getCountItems() {
-        return countItems;
-    }
-
-    public boolean isItemFound(){
-        return itemFound;
-    }
-    public void setItemFound(boolean found){
-        this.itemFound = found;
     }
 
     //player position
@@ -108,6 +79,29 @@ public class Player extends Creatures {
         this.currentField = currentField % 28;
     }
 
+    //items
+    public void setCountItems(int countItems) {
+        this.countItems = countItems;
+    }
+    public int getCountItems() {
+        return countItems;
+    }
+
+    public boolean isItemFound(){
+        return itemFound;
+    }
+    public void setItemFound(boolean found){
+        this.itemFound = found;
+    }
+
+    //move started
+    public void setMoveStarted(boolean ms){
+        this.moveStarted = ms;
+    }
+    public boolean isMoveStarted(){
+        return moveStarted;
+    }
+
     //moveBlocked
     public boolean isBlocked() {
         return blocked;
@@ -116,7 +110,7 @@ public class Player extends Creatures {
         this.blocked = blocked;
     }
 
-    //fight
+    //wanna fight
     public boolean isWannaFight() {
         return wannaFight;
     }
@@ -124,6 +118,13 @@ public class Player extends Creatures {
         this.wannaFight = wannaFight;
     }
 
+    //not wanna fight
+    public void setNotWannaFight(boolean notWannaFight){this.notWannaFight = notWannaFight; }
+    public  boolean notWannaFight(){
+        return notWannaFight;
+    }
+
+    //fight
     public boolean isFight() {
         return fight;
     }
@@ -131,20 +132,7 @@ public class Player extends Creatures {
         this.fight = fight;
     }
 
-    public boolean isWin() {
-        return win;
-    }
-    public void setWin(boolean win) {
-        this.win = win;
-    }
-
-    public boolean readyToShowPoints(){
-        return readyToShowPoints;
-    }
-    public void setReadyToShowPoints(boolean readyToShowPoints){
-        this.readyToShowPoints = readyToShowPoints;
-    }
-
+    //increased power
     public void setIncreasedPower(int pow){
         this.increasedPower = pow;
     }
@@ -152,25 +140,51 @@ public class Player extends Creatures {
         return increasedPower;
     }
 
+    //lose
+    public void setLose(boolean lose){
+        this.lose = lose;
+    }
+    public boolean isLose(){
+        return lose;
+    }
+
+   //win
+    public boolean isMonsterRolled() {
+        return monsterRolled;
+    }
+    public void setMonsterRolled(boolean monsterRolled) {
+        this.monsterRolled = monsterRolled;
+    }
+
+    //is parameters increased
+    //power
     public boolean isPowerIncreased() {
         return isPowerIncreased;
     }
     public void setPowerIncreased(boolean pi){
         this.isPowerIncreased = pi;
     }
-
+    //luck
     public boolean isLuckIncreased() {
         return isLuckIncreased;
     }
     public void setLuckIncreased(boolean pi){
         this.isLuckIncreased = pi;
     }
-
+    //speed
     public boolean isSpeedIncreased() {
         return isSpeedIncreased;
     }
     public void setSpeedIncreased(boolean pi){
         this.isSpeedIncreased = pi;
+    }
+
+    //show
+    public boolean readyToShowPoints(){
+        return readyToShowPoints;
+    }
+    public void setReadyToShowPoints(boolean readyToShowPoints){
+        this.readyToShowPoints = readyToShowPoints;
     }
 
     public void setReadyToShowResult(boolean showResult){
@@ -185,8 +199,11 @@ public class Player extends Creatures {
         this.show = show;
     }
 
-    public void setNotWannaFight(boolean notWannaFight){this.notWannaFight = notWannaFight; }
-    public  boolean notWannaFight(){
-        return notWannaFight;
+    //exit
+    public void setExit(boolean exit){
+        this.exit = exit;
+    }
+    public boolean isExit(){
+        return exit;
     }
 }

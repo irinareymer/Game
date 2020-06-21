@@ -3,7 +3,7 @@ package View.PlayStateView;
 import com.badlogic.gdx.graphics.Texture;
 
 public class DiceView {
-    Texture dice;
+    private Texture dice;
 
     public void init() {
         diceImg(6);

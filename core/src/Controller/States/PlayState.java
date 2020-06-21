@@ -8,22 +8,22 @@ import Model.GameField.Field;
 import Model.GameField.Items;
 import Model.Creatures.Monster;
 import Model.GameField.Dice;
-import Model.GameLogic;
+import Controller.GameLogic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
 public class PlayState extends State {
 
-    Player player1;
-    Player player2;
-    GameLogic logic;
-    Field field;
-    Items item;
-    Monster monster;
-    Dice dice;
-    Player currentPlayer;
-    Boolean ready;
-    Boolean showResultOfFight;
+    private Player player1;
+    private Player player2;
+    private GameLogic logic;
+    private Field field;
+    private Items item;
+    private Monster monster;
+    private Dice dice;
+    private Player currentPlayer;
+    private Boolean ready;
+
     public char[] newName;
     public int currentChar;
 
@@ -31,41 +31,82 @@ public class PlayState extends State {
         super(sm);
     }
 
-     public void init(){
-         ready = false;
-         showResultOfFight = false;
-         player1 = new Player(this, new Position((int)((MyGdxGame.WIDTH - 880) / 2) + 44, 484 + 20));
-         player2 = new Player(this, new Position((int)((MyGdxGame.WIDTH - 880) / 2) + 44, 484));
-         player1.setName("----------");
-         player2.setName("----------");
-         player2.setExit(false);
-         player1.setExit(false);
-         newName = new char[] {'А','А','А','А','А','А','А','А','А','А'};
-         currentChar = 0;
+    @Override
+    public void init(){
 
-         logic = new GameLogic(this);
+        player1 = new Player(this, new Position((int)((MyGdxGame.WIDTH - 880) / 2) + 44, 484 + 20));
+        currentPlayer = player1;
+        player2 = new Player(this, new Position((int)((MyGdxGame.WIDTH - 880) / 2) + 44, 484));
+        player1.setName("----------");
+        player2.setName("----------");
+        player1.setExit(false);
+        player2.setExit(false);
+        newName = new char[] {'А','А','А','А','А','А','А','А','А','А'};
+        currentChar = 0;
 
-        dice = new Dice(this);
+        monster = new Monster(this);
+        logic = new GameLogic(this);
         field = new Field(this);
         field.init();
+        dice = new Dice(this);
         item = new Items(this);
-        monster = new Monster(this);
-     }
+
+        ready = false;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+    public Player getPlayer2() {
+        return player2;
+    }
+
+    public Player getCurrentPayer() {
+        return currentPlayer;
+    }
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+    public void changeCurrentPlayer(Player currentPlayer){
+        if (currentPlayer == getPlayer1()) this.currentPlayer = getPlayer2();
+        else this.currentPlayer = getPlayer1();
+    }
+
+    public Dice getDice() {
+        return dice;
+    }
+    public Field getField() {
+        return field;
+    }
+    public Items getItems(){
+        return item;
+    }
+    public Monster getMonster(){return monster;}
+
+    public void setReady(boolean ready){
+        this.ready = ready;
+    }
+    public boolean isReady(){
+        return ready;
+    }
+
+    public StatesManager getSM(){
+        return sm;
+    }
 
     //exit
     public void isWannaExit(Player player){
-        boolean yes = Gdx.input.isKeyJustPressed(Input.Keys.SPACE);
-        boolean no = Gdx.input.isKeyJustPressed(Input.Keys.ENTER);
+        boolean yes = Gdx.input.isKeyJustPressed(Input.Keys.Q);
+        boolean no = Gdx.input.isKeyJustPressed(Input.Keys.C);
         if(yes){
-            no = false;
             sm.setState(StatesManager.TypeState.MENU);
         }
-        if(no) {
+        else if(no) {
             player.setExit(false);
-            yes = false;
         }
     }
 
+    //set name
     public void inputName(Player player){
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             player.setExit(true);
@@ -116,43 +157,18 @@ public class PlayState extends State {
         }
     }
 
-    public Player getPlayer1() {
-        return player1;
-    }
-    public Player getPlayer2() {
-        return player2;
-    }
-    public Dice getDice() {
-        return dice;
-    }
-    public Field getField() {
-        return field;
-    }
-    public Items getItems(){
-        return item;
-    }
-    public Monster getMonster(){return monster;}
-    public Player getCurrentPayer() {
-        return currentPlayer;
-    }
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-    public void changeCurrentPlayer(Player currentPlayer){
-        if (currentPlayer == getPlayer1()) this.currentPlayer = getPlayer2();
-        else this.currentPlayer = getPlayer1();
-    }
-    public void setReady(boolean ready){
-        this.ready = ready;
-    }
-    public boolean isReady(){
-        return ready;
-    }
-    public StatesManager getSM(){
-        return sm;
-    }
-
+    @Override
     public void update (float dt) {
-        logic.update(dt);
+        //game logic
+        logic.update();
+
+        //exit
+        boolean exit = Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE);
+        if(exit) {
+            getCurrentPayer().setExit(true);
+        }
+        if(getCurrentPayer().isExit()){
+            isWannaExit(getCurrentPayer());
+        }
     }
 }
