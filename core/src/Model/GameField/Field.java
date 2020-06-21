@@ -1,8 +1,8 @@
 package Model.GameField;
 
-import Model.Creatures.Position;
-import Controller.States.PlayState;
 import Controller.MyGdxGame;
+import Controller.States.PlayState;
+import Model.Creatures.Position;
 
 import java.util.HashMap;
 import java.util.Map;

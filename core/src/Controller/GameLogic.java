@@ -1,8 +1,8 @@
 package Controller;
 
+import Controller.States.PlayState;
 import Model.Creatures.Player;
 import Model.Creatures.Position;
-import Controller.States.PlayState;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 

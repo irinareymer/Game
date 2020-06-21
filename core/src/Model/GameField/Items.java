@@ -1,7 +1,7 @@
 package Model.GameField;
 
-import Model.Creatures.Position;
 import Controller.States.PlayState;
+import Model.Creatures.Position;
 
 import java.util.Random;
 

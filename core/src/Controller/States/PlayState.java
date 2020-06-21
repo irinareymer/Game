@@ -1,14 +1,14 @@
 package Controller.States;
 
+import Controller.GameLogic;
 import Controller.MyGdxGame;
 import Controller.StatesManager;
+import Model.Creatures.Monster;
 import Model.Creatures.Player;
 import Model.Creatures.Position;
+import Model.GameField.Dice;
 import Model.GameField.Field;
 import Model.GameField.Items;
-import Model.Creatures.Monster;
-import Model.GameField.Dice;
-import Controller.GameLogic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 

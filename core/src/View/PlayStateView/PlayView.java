@@ -1,11 +1,11 @@
 package View.PlayStateView;
 
+import Controller.MyGdxGame;
 import Controller.States.PlayState;
 import View.View;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import Controller.MyGdxGame;
 
 public class PlayView extends View {
 

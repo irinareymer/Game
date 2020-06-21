@@ -1,10 +1,10 @@
 package Controller;
 
 import Controller.States.*;
-import View.ScoreView;
 import View.MenuStateView;
-import View.RulesStateView;
 import View.PlayStateView.PlayView;
+import View.RulesStateView;
+import View.ScoreView;
 import View.View;
 
 public class StatesManager {
