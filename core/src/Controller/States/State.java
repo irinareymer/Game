@@ -10,7 +10,7 @@ public abstract class State {
         init();
     }
 
-    public abstract void init();
-    public abstract void update(float dt);
+    public void init() {}
+    public void update(float dt) {}
 
 }

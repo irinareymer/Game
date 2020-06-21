@@ -1,10 +1,6 @@
 package Model.Creatures;
 
-import Controller.States.PlayState;
-
 public class Player extends Creatures {
-
-    protected PlayState em;
 
     private String name;
     private boolean isNameSet;
@@ -36,9 +32,8 @@ public class Player extends Creatures {
 
     private boolean exit;
 
-    public Player(PlayState em, Position pose) {
+    public Player(Position pose) {
         this.pose = pose;
-        this.em = em;
     }
     //name
     public void setName(String name) {

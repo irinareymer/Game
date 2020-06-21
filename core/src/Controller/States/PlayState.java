@@ -34,9 +34,9 @@ public class PlayState extends State {
     @Override
     public void init(){
 
-        player1 = new Player(this, new Position((int)((MyGdxGame.WIDTH - 880) / 2) + 44, 484 + 20));
+        player1 = new Player(new Position((int)((MyGdxGame.WIDTH - 880) / 2) + 44, 484 + 20));
         currentPlayer = player1;
-        player2 = new Player(this, new Position((int)((MyGdxGame.WIDTH - 880) / 2) + 44, 484));
+        player2 = new Player(new Position((int)((MyGdxGame.WIDTH - 880) / 2) + 44, 484));
         player1.setName("----------");
         player2.setName("----------");
         player1.setExit(false);

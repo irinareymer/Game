@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Field {
-    protected PlayState ps;
+    private PlayState ps;
     private static final Map<Integer, Position> field = new HashMap<>();
 
     public Field(PlayState ps) {

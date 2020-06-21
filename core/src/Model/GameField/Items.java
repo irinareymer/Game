@@ -6,7 +6,7 @@ import Model.Creatures.Position;
 import java.util.Random;
 
 public class Items {
-    protected PlayState ps;
+    private PlayState ps;
 
     public Items(PlayState ps) {
         this.ps = ps;

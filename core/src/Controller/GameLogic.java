@@ -8,7 +8,7 @@ import com.badlogic.gdx.Input;
 
 public class GameLogic {
 
-    protected PlayState ps;
+    private PlayState ps;
     private int rolled;
     private boolean over;
 

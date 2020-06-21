@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class ScoreView extends View {
 
-    private ScoreState ss;
     private SpriteBatch batch;
     private BitmapFont font;
     private BitmapFont fontTitle;
@@ -15,7 +14,6 @@ public class ScoreView extends View {
     private String[] names;
 
     public ScoreView(ScoreState ss){
-        this.ss = ss;
         this.scores = ss.getScores();
         this.names = ss.getNames();
     }

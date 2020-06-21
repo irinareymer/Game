@@ -16,8 +16,8 @@ public abstract class View {
     protected FreeTypeFontGenerator.FreeTypeFontParameter parameter1 = new FreeTypeFontGenerator.FreeTypeFontParameter();
     protected FreeTypeFontGenerator.FreeTypeFontParameter parameter2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
-    public abstract void init();
-    public abstract void draw();
-    public abstract void update(float dt);
-    public abstract void dispose();
+    public void init() {}
+    public void draw() {}
+    public void update(float dt) {}
+    public void dispose() {}
 }
